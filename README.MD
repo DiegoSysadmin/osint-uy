@@ -1,3 +1,5 @@
+
+
 # 0. Pasos previos
 
 ## Instalar Git
