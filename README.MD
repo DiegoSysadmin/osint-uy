@@ -69,7 +69,8 @@ docker compose up --build -d
 ```
 
 # 3. Acceder al entorno seguro de investigación
-## El analista abre su navegador local e ingresa a: http://localhost:8080/vnc.html
+
+El analista abre su navegador local e ingresa a: http://localhost:8080/vnc.html
 
 # 4. Actualizar los contenedoresceder al entorno seguro de investigación
 
