@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  red_externa:
+    driver: bridge
+  red_aislada_osint:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.20.0/24
+
+services:
+  osint-gateway:
+    image: diego11072026/osint-gateway:1.0
+    container_name: osint-gateway
+    privileged: true
+    networks:
+      red_externa:
+      red_aislada_osint:
+        ipv4_address: 192.168.20.10
+    restart: always
+
+  osint-workstation:
+    image: diego11072026/osint-workstation:1.0
+    container_name: osint-workstation
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "8080:8080"  # Permite acceder al escritorio web
+    networks:
+      red_aislada_osint:
+        ipv4_address: 192.168.20.20
+    depends_on:
+      - osint-gateway
+    restart: always
