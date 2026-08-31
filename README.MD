@@ -5,14 +5,14 @@
 
 🚓 Investigar cibercrimen en fuentes abiertas (OSINT) exige un equilibrio crítico entre recolección de inteligencia y seguridad operacional (OpSec). Durante años, la comunidad dependió de distribuciones monolíticas en máquinas virtuales que hoy están abandonadas o rotas por el clásico dependency drift. Esta solución basada en microservicios con Docker Compose que desacopla la navegación anónima del análisis, garantizando cero fugas de IP (DNS/IP leaks) y un despliegue en segundos.
 
-**Aislamiento Tipo Whonix en Docker**
+#### Aislamiento Tipo Whonix en Docker
 El sistema se divide en dos niveles lógicos interconectados por una subred interna privada (192.168.20.0/24):
 * **osint-gateway (Proxy Transparente)**: Un contenedor basado en Debian con iptables y Tor configurado con TransPort 9040 y DNSPort 5353. Captura cualquier petición TCP/UDP saliente de la subred interna y la canaliza obligatoriamente por la red Tor.
 * **osint-workstation (Estación de Análisis)**: Un contenedor Ubuntu que contiene el arsenal de herramientas y carece de ruta por defecto directa a Internet. Su única salida es la IP interna del Gateway (192.168.20.10).
 
-Plaintext
+```Text
 [Analista / Host] ──(HTTP :8080)──► [osint-workstation] ──(Red Aislada)──► [osint-gateway / Tor] ──► Internet
-
+```
 # Requisitos previos
 
 ## Instalar Git
@@ -71,23 +71,25 @@ sudo systemctl enable --now docker
 sudo docker run hello-world
 ```
 
+# Instalación
 
-# 1. Clonar el repositorio del TFM
+## 1. Clonar el repositorio del TFM
+
 ```text
 git clone https://github.com/osintuy.git
 cd osintuy
 ```
 
-# 2. Desplegar la infraestructura
+## 2. Desplegar la infraestructura
 ```text
 docker compose up --build -d
 ```
 
-# 3. Acceder al entorno seguro de investigación
+## 3. Acceder al entorno seguro de investigación
 
 El analista abre su navegador local e ingresa a: http://localhost:8080/vnc.html
 
-# 4. Actualizar los contenedoresceder al entorno seguro de investigación
+## 4. Actualizar los contenedoresceder al entorno seguro de investigación
 
 ```text
 Pararse dentro de la carpeta del repositorio de git descargado:
