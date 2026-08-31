@@ -33,7 +33,7 @@ sudo pacman -S git
 ```
 
 ## Instalar Docker
-Para instalar Docker se sugiere ir directamente a la web oficial y consultar la instalación para el Sistema Operativo que corresponda. En esta seccion se presenta como ejemplo la instalación para CentOS (Rocky) Linux.
+Para instalar Docker se sugiere ir directamente a la web oficial y consultar la instalación para el Sistema Operativo que corresponda. En esta seccion se presenta como ejemplo la instalación para CentOS (Rocky/Fedora) y Ubuntu Linux.
 
 [Web oficial](https://docs.docker.com/engine/install/)
 
@@ -89,7 +89,6 @@ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyring
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 # Add the repository to Apt sources:
-
 sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
 Types: deb
 URIs: https://download.docker.com/linux/ubuntu
@@ -102,13 +101,12 @@ EOF
 sudo apt update
 ```
 
-
 # Instalación
 
 ## 1. Clonar el repositorio del TFM
 
 ```text
-git clone https://github.com/osintuy.git
+git clone https://github.com/DiegoSysadmin/osint-uy/tree/main
 cd osintuy
 ```
 
