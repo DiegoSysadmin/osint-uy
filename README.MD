@@ -3,14 +3,12 @@
 ![LOGO](/images/LOGO.jpg)
 
 
-Investigar cibercrimen en fuentes abiertas (OSINT) exige un equilibrio crítico entre recolección de inteligencia y seguridad operacional (OpSec).
-Durante años, la comunidad dependió de distribuciones monolíticas en máquinas virtuales que hoy están abandonadas o rotas por el clásico dependency drift.
-Diseñamos una solución basada en microservicios con Docker Compose que desacopla la navegación anónima del análisis, garantizando cero fugas de IP (DNS/IP leaks) y un despliegue en segundos.
+🚓 Investigar cibercrimen en fuentes abiertas (OSINT) exige un equilibrio crítico entre recolección de inteligencia y seguridad operacional (OpSec). Durante años, la comunidad dependió de distribuciones monolíticas en máquinas virtuales que hoy están abandonadas o rotas por el clásico dependency drift. Esta solución basada en microservicios con Docker Compose que desacopla la navegación anónima del análisis, garantizando cero fugas de IP (DNS/IP leaks) y un despliegue en segundos.
 
-Aislamiento Tipo Whonix en Docker
+**Aislamiento Tipo Whonix en Docker**
 El sistema se divide en dos niveles lógicos interconectados por una subred interna privada (192.168.20.0/24):
-•	osint-gateway (Proxy Transparente): Un contenedor basado en Debian con iptables y Tor configurado con TransPort 9040 y DNSPort 5353. Captura cualquier petición TCP/UDP saliente de la subred interna y la canaliza obligatoriamente por la red Tor.
-•	osint-workstation (Estación de Análisis): Un contenedor Ubuntu que contiene el arsenal de herramientas y carece de ruta por defecto directa a Internet. Su única salida es la IP interna del Gateway (192.168.20.10).
+* **osint-gateway (Proxy Transparente)**: Un contenedor basado en Debian con iptables y Tor configurado con TransPort 9040 y DNSPort 5353. Captura cualquier petición TCP/UDP saliente de la subred interna y la canaliza obligatoriamente por la red Tor.
+* **osint-workstation (Estación de Análisis)**: Un contenedor Ubuntu que contiene el arsenal de herramientas y carece de ruta por defecto directa a Internet. Su única salida es la IP interna del Gateway (192.168.20.10).
 
 Plaintext
 [Analista / Host] ──(HTTP :8080)──► [osint-workstation] ──(Red Aislada)──► [osint-gateway / Tor] ──► Internet
