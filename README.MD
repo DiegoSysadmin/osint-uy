@@ -123,7 +123,7 @@ sudo docker run hello-world
 
 ```text
 git clone https://github.com/DiegoSysadmin/osint-uy.git
-cd osintuy
+cd osint-uy
 chmod +x workstation/entrypoint.sh
 ```
 
