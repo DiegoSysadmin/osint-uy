@@ -1,6 +1,48 @@
+# OSINT-UY
+
+██████╗ ███████╗██╗███╗   ██╗████████╗    ██╗   ██╗██╗   ██╗
+ ██╔═══██╗██╔════╝██║████╗  ██║╚══██╔══╝    ██║   ██║╚██╗ ██╔╝
+ ██║   ██║███████╗██║██╔██╗ ██║   ██║ █████╗██║   ██║ ╚████╔╝ 
+ ██║   ██║╚════██║██║██║╚██╗██║   ██║ ╚════╝██║   ██║  ╚██╔╝  
+ ╚██████╔╝███████║██║██║ ╚████║   ██║       ╚██████╔╝   ██║   
+  ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝   ╚═╝        ╚═════╝    ╚═╝   
+    [ OSINT Police Investigation Environment - Uruguay ]
+
+Investigar cibercrimen en fuentes abiertas (OSINT) exige un equilibrio crítico entre recolección de inteligencia y seguridad operacional (OpSec).
+Durante años, la comunidad dependió de distribuciones monolíticas en máquinas virtuales que hoy están abandonadas o rotas por el clásico dependency drift.
+Diseñamos una solución basada en microservicios con Docker Compose que desacopla la navegación anónima del análisis, garantizando cero fugas de IP (DNS/IP leaks) y un despliegue en segundos.
+
+Aislamiento Tipo Whonix en Docker
+El sistema se divide en dos niveles lógicos interconectados por una subred interna privada (192.168.20.0/24):
+•	osint-gateway (Proxy Transparente): Un contenedor basado en Debian con iptables y Tor configurado con TransPort 9040 y DNSPort 5353. Captura cualquier petición TCP/UDP saliente de la subred interna y la canaliza obligatoriamente por la red Tor.
+•	osint-workstation (Estación de Análisis): Un contenedor Ubuntu que contiene el arsenal de herramientas y carece de ruta por defecto directa a Internet. Su única salida es la IP interna del Gateway (192.168.20.10).
+
+Plaintext
+[Analista / Host] ──(HTTP :8080)──► [osint-workstation] ──(Red Aislada)──► [osint-gateway / Tor] ──► Internet
+
+Retos de Ingeniería y Empaquetado Moderno
+Convertir herramientas clásicas a un entorno contenerizado reproducible requirió resolver tres obstáculos técnicos:
+1.	Migración a pyproject.toml: Utilidades como Sherlock y theHarvester abandonaron los viejos requirements.txt. El aprovisionamiento se adaptó para compilar paquetes modernos directamente con pip install ..
+2.	Micro-entornos Virtuales Aislados: Cada herramienta se encapsuló en su propio venv dentro de /opt/osint_policial/herramientas/, exponiendo binarios globales a /usr/local/bin/ para erradicar conflictos de dependencias cruzadas.
+3.	Escritorio Web Ligero (Headless GUI): Mediante la pila Xvfb + XFCE4 + x11vnc + websockify/noVNC, el analista accede a la interfaz gráfica completa y al navegador Firefox con marcadores policiales preconfigurados desde cualquier navegador anfitrión en http://localhost:8080/vnc.html.
+Despliegue en 3 Pasos
+Gracias a las imágenes publicadas en Docker Hub, el entorno no requiere compilación local:
+Bash
+# 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/tfm-osint-policial.git && cd tfm-osint-policial
+
+# 2. Levantar la infraestructura
+docker compose up -d
+
+# 3. Acceder al laboratorio
+# Abrir en el navegador: http://localhost:8080/vnc.html
+Este enfoque ofrece una alternativa ligera (~1.8 GB frente a los 20 GB de una VM tradicional), modular y estrictamente anonimizada para analistas de ciberinteligencia y unidades de persecución del delito informático.
 
 
-# 0. Pasos previos
+
+
+
+# Requisitos previos
 
 ## Instalar Git
 
