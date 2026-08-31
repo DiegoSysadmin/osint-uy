@@ -100,6 +100,22 @@ EOF
 
 sudo apt update
 ```
+```text
+# Instalar el paquete Docker
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+```text
+# Verificar que Docker está corriendo
+sudo systemctl status docker
+```
+```text
+Si no esta corriendo arrancarlo manualmente
+sudo systemctl start docker
+```
+```text
+# Verificar instalación:
+sudo docker run hello-world
+```
 
 # Instalación
 
