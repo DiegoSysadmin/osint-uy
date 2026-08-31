@@ -108,6 +108,7 @@ sudo apt update
 ```text
 git clone https://github.com/DiegoSysadmin/osint-uy.git
 cd osintuy
+chmod +x workstation/entrypoint.sh
 ```
 
 ## 2. Desplegar la infraestructura
