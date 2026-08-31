@@ -106,7 +106,7 @@ sudo apt update
 ## 1. Clonar el repositorio del TFM
 
 ```text
-git clone https://github.com/DiegoSysadmin/osint-uy/tree/main
+git clone https://github.com/DiegoSysadmin/osint-uy/
 cd osintuy
 ```
 
